@@ -1,4 +1,5 @@
-import { Component } from "react";
+import React, { Component } from "react";
+
 
 class RoomList extends Component {
   constructor(props) {
@@ -18,7 +19,19 @@ class RoomList extends Component {
   }
 
   render() {
-     return this.state.rooms.map();
+     return (
+       <ul>
+       {this.state.rooms.map((room, index) =>
+        <li
+          className="room-names"
+          key={room.key}
+          onClick={()=> this.props.handleRoomSelect(room)}
+          >
+          {room.name}
+        </li>
+       )}
+
+       </ul>);
   }
 }
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
 import './App.css';
 import RoomList from './components/RoomList';
 import * as firebase from 'firebase';
+
+
 //Initialize Firebase
 var config = {
   apiKey: "AIzaSyDeUwmQXFEWAQwvaoMwXR_fkCtS8ZETBS0",
@@ -19,7 +20,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <RoomList data={ this.state.rooms } />
+        <header>
+          <h1>Bloc Chat</h1>
+        </header>
+        <main>
+          <RoomList firebase={firebase} />
+        </main>
       </div>
     );
   }
