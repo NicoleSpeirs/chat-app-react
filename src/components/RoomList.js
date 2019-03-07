@@ -1,13 +1,18 @@
 import React, { Component } from "react";
-
+import "./RoomList.css";
 
 class RoomList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rooms: []
+      rooms: [],
+      newRoomName: "",
+
     };
     this.roomsRef = this.props.firebase.database().ref("rooms");
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.createRoom = this.createRoom.bind(this);
   }
 
   componentDidMount() {
@@ -18,20 +23,60 @@ class RoomList extends Component {
     });
   }
 
-  render() {
-     return (
-       <ul>
-       {this.state.rooms.map((room, index) =>
-        <li
-          className="room-names"
-          key={room.key}
-          onClick={()=> this.props.handleRoomSelect(room)}
-          >
-          {room.name}
-        </li>
-       )}
+  handleClick(e) {
+    this.setState({
+      newRoomName: e.target.value
+    });
+  }
 
-       </ul>);
+  handleChange(e) {
+    this.setState({
+      newRoomName: e.target.value
+    });
+  }
+
+  createRoom(e) {
+    e.preventDefault();
+    this.roomRef.push({ name: this.state.newRoomName });
+    this.setState({
+      newRoomName: ""
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <ul>
+          {this.state.rooms.map(room => (
+            <li className="room-names" key={room.key}>
+              {room.name}
+            </li>
+          ))}
+        </ul>
+        <div>
+          <button onClick={this.handleClick}>new room</button>
+        </div>
+
+        <div className="new-room">
+          <form onSubmit={this.handleSubmit}>
+            <fieldset>
+              <legend>Create new room</legend>
+              <br />
+
+              <label>Enter Room Name:</label>
+              <br />
+              <input
+                type="text"
+                value={this.state.newRoomName}
+                onChange={this.handleChange}
+              />
+              <br />
+              <input type="submit" value="submit" />
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    );
   }
 }
 
