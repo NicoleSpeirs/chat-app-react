@@ -22,7 +22,6 @@ class RoomList extends Component {
       this.setState({ rooms: this.state.rooms.concat(room) });
     });
   }
-
   handleClick(e) {
     this.setState({
       newRoomName: e.target.value
@@ -34,7 +33,7 @@ class RoomList extends Component {
       newRoomName: e.target.value
     });
   }
-  
+
 
   createRoom(e) {
     e.preventDefault();
