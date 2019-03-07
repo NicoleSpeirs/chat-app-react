@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import "./RoomList.css";
+
 class RoomList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       rooms: [],
-      newRoomName: ""
+      newRoomName: "",
+
     };
     this.roomsRef = this.props.firebase.database().ref("rooms");
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.createRoom = this.createRoom.bind(this);
   }
 
   componentDidMount() {
@@ -18,14 +23,23 @@ class RoomList extends Component {
     });
   }
 
-  createRoom() {
-    this.setState(state => {
-      const rooms = state.rooms.concat(state.newRoomName);
+  handleClick(e) {
+    this.setState({
+      newRoomName: e.target.value
+    });
+  }
 
-      return {
-        rooms,
-        newRoomName: ""
-      };
+  handleChange(e) {
+    this.setState({
+      newRoomName: e.target.value
+    });
+  }
+
+  createRoom(e) {
+    e.preventDefault();
+    this.roomRef.push({ name: this.state.newRoomName });
+    this.setState({
+      newRoomName: ""
     });
   }
 
@@ -39,25 +53,27 @@ class RoomList extends Component {
             </li>
           ))}
         </ul>
+        <div>
+          <button onClick={this.handleClick}>new room</button>
+        </div>
 
         <div className="new-room">
-        <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
+            <fieldset>
+              <legend>Create new room</legend>
+              <br />
 
-          <fieldset>
-            <legend>Create new room</legend>
-            <br />
-
-            <label>Enter Room Name:</label>
-            <br />
-            <input
-              type="text"
-              value={this.state.newRoomName}
-              onChange={this.handleChange}
-            />
-            <br />
-            <input type="submit" value="submit" />
-          </fieldset>
-        </form>
+              <label>Enter Room Name:</label>
+              <br />
+              <input
+                type="text"
+                value={this.state.newRoomName}
+                onChange={this.handleChange}
+              />
+              <br />
+              <input type="submit" value="submit" />
+            </fieldset>
+          </form>
         </div>
       </div>
     );
