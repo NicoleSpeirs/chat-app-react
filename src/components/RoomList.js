@@ -7,7 +7,7 @@ class RoomList extends Component {
     this.state = {
       rooms: [],
       newRoomName: "",
-
+      creating: false
     };
     this.roomsRef = this.props.firebase.database().ref("rooms");
     this.handleClick = this.handleClick.bind(this);
@@ -34,12 +34,14 @@ class RoomList extends Component {
       newRoomName: e.target.value
     });
   }
+  
 
   createRoom(e) {
     e.preventDefault();
-    this.roomRef.push({ name: this.state.newRoomName });
+    this.roomsRef.push({ name: this.state.newRoomName });
     this.setState({
-      newRoomName: ""
+      newRoomName: "",
+      creating: false
     });
   }
 
@@ -54,27 +56,26 @@ class RoomList extends Component {
           ))}
         </ul>
         <div>
-          <button onClick={this.handleClick}>new room</button>
+          <button onClick={(e)=>this.setState({creating:true})}>new room</button>
         </div>
 
-        <div className="new-room">
-          <form onSubmit={this.handleSubmit}>
+        {(this.state.creating) ? <div className="new-room">
+          <form onSubmit={(e)=>this.createRoom(e)}>
             <fieldset>
               <legend>Create new room</legend>
-              <br />
 
-              <label>Enter Room Name:</label>
-              <br />
-              <input
+              <p>
+                <label>Enter Room Name:</label>
+                <input
                 type="text"
                 value={this.state.newRoomName}
                 onChange={this.handleChange}
-              />
-              <br />
-              <input type="submit" value="submit" />
+                />
+              </p>
+              <p><input type="submit" value="submit" /></p>
             </fieldset>
           </form>
-        </div>
+        </div> : ''}
       </div>
     );
   }
