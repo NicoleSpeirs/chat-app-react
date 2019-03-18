@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import RoomList from "./components/RoomList";
 import MessageList from "./components/MessageList";
@@ -15,10 +15,15 @@ var config = {
 };
 firebase.initializeApp(config);
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+class App extends React.Component {
+  state = {
+      currentRoom: {}
+    };
+
+handleRoomSelect = room => {
+  this.setState({ currentRoom: room});
+};
+
   render() {
     return (
       <div className="App">
@@ -26,7 +31,8 @@ class App extends Component {
           <h1>Bloc Chat</h1>
         </header>
         <main>
-          <RoomList firebase={firebase} />
+          <RoomList firebase={firebase}  handleRoomSelect={this.handleRoomSelect} />
+          <MessageList firebase={firebase} currentRoom={this.state.currentRoom}  />
         </main>
       </div>
     );

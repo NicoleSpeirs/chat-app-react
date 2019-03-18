@@ -1,41 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 import "./RoomList.css";
 
-class RoomList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rooms: [],
-      newRoomName: "",
-      creating: false
-    };
-    this.roomsRef = this.props.firebase.database().ref("rooms");
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.createRoom = this.createRoom.bind(this);
+class RoomList extends React.Component {
+  state = {
+    rooms: [],
+    newRoomName: "",
+    creating: false
   }
+  roomsRef = this.props.firebase.database().ref("rooms");
+  // this.handleChange = this.handleChange.bind(this);
+  // this.createRoom = this.createRoom.bind(this);
 
-  componentDidMount() {
+
+  componentDidMount = () => {
     this.roomsRef.on("child_added", snapshot => {
       const room = snapshot.val();
       room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat(room) });
     });
   }
-  handleClick(e) {
+
+
+  handleChange = (e) => {
     this.setState({
       newRoomName: e.target.value
     });
   }
 
-  handleChange(e) {
-    this.setState({
-      newRoomName: e.target.value
-    });
-  }
 
-
-  createRoom(e) {
+  createRoom = (e) => {
     e.preventDefault();
     this.roomsRef.push({ name: this.state.newRoomName });
     this.setState({
@@ -44,12 +37,14 @@ class RoomList extends Component {
     });
   }
 
+
+
   render() {
     return (
       <div>
         <ul>
           {this.state.rooms.map(room => (
-            <li className="room-names" key={room.key}>
+            <li className="room-name" key={room.key} onClick={() => this.props.handleRoomSelect(room)}>
               {room.name}
             </li>
           ))}
