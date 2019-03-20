@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import RoomList from "./components/RoomList";
 import MessageList from "./components/MessageList";
+import User from "./User";
 import * as firebase from "firebase";
 
 //Initialize Firebase
@@ -33,6 +34,7 @@ handleRoomSelect = room => {
         <main>
           <RoomList firebase={firebase}  handleRoomSelect={this.handleRoomSelect} />
           <MessageList firebase={firebase} currentRoom={this.state.currentRoom}  />
+          <User firebase={firebase} />
         </main>
       </div>
     );
