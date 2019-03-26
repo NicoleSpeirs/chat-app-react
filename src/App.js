@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import RoomList from "./components/RoomList";
 import MessageList from "./components/MessageList";
-import User from "./User";
+import User from "./components/User";
 import * as firebase from "firebase";
 
 //Initialize Firebase
@@ -25,6 +25,12 @@ handleRoomSelect = room => {
   this.setState({ currentRoom: room});
 };
 
+setUser = user => {
+  this.setState({
+    user: user,
+  });
+}
+
   render() {
     return (
       <div className="App">
@@ -32,9 +38,9 @@ handleRoomSelect = room => {
           <h1>Bloc Chat</h1>
         </header>
         <main>
+          <User firebase={firebase} user={this.state.user} setUser={this.setUser} />
           <RoomList firebase={firebase}  handleRoomSelect={this.handleRoomSelect} />
           <MessageList firebase={firebase} currentRoom={this.state.currentRoom}  />
-          <User firebase={firebase} />
         </main>
       </div>
     );
