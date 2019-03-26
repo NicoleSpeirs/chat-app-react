@@ -1,4 +1,5 @@
 import React from "react";
+import "./style.css";
 
 class MessageList extends React.Component {
   state = {
@@ -78,10 +79,10 @@ class MessageList extends React.Component {
         </form>
         {this.getRoomMessages().map(message => {
           return (
-            <div key={message.key}>
-              <li>{message.content}</li>
-              <li>{this.formatTime(message.sentAt)}</li>
+            <div className="message-display" key={message.key}>
               <li>{message.username}</li>
+              <li>[{this.formatTime(message.sentAt)}]</li>
+              <li>{message.content}</li>
               {
                 currentRoom
                 ? <li>current room: {currentRoom.name}</li>
