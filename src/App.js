@@ -18,29 +18,45 @@ firebase.initializeApp(config);
 
 class App extends React.Component {
   state = {
-      currentRoom: {}
-    };
+    currentRoom: {},
+    user: null
+  };
 
-handleRoomSelect = room => {
-  this.setState({ currentRoom: room});
-};
+  handleRoomSelect = room => {
+    this.setState({ currentRoom: room });
+  };
 
-setUser = user => {
-  this.setState({
-    user: user,
-  });
-}
+  setUser = user => {
+    this.setState({
+      user: user
+    });
+  };
 
   render() {
     return (
       <div className="App">
-        <header>
-          <h1>Bloc Chat</h1>
-        </header>
         <main>
-          <User firebase={firebase} user={this.state.user} setUser={this.setUser} />
-          <RoomList firebase={firebase}  handleRoomSelect={this.handleRoomSelect} />
-          <MessageList firebase={firebase} currentRoom={this.state.currentRoom}  />
+          <div className="chat-container">
+            <div className="left-container">
+              <h1>Bloc Chat</h1>
+              <RoomList
+                firebase={firebase}
+                handleRoomSelect={this.handleRoomSelect}
+              />
+            </div>
+            <div className="right-container">
+              <User
+                firebase={firebase}
+                user={this.state.user}
+                setUser={this.setUser}
+              />
+              <MessageList
+                firebase={firebase}
+                currentRoom={this.state.currentRoom}
+                user={this.state.user}
+              />
+            </div>
+          </div>
         </main>
       </div>
     );
@@ -48,3 +64,12 @@ setUser = user => {
 }
 
 export default App;
+
+// (
+//   <div className="App">
+//     <div className="chat-container">
+//       <RoomList></RoomList>
+//       <MessageList></MessageList>
+//     </div>
+//   </div>
+// )

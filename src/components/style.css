@@ -1,5 +1,124 @@
-.message-display {
-  display: center;
-  align-items: baseline;
-  color: red;
+.App {
+
+  background:silver;
 }
+.chat-container {
+  display: flex;
+  background: #136a8a;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #267871, #136a8a);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #267871, #136a8a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.left-container {
+  width: 30%;
+
+}
+
+.right-container {
+  width: 70%;
+
+}
+
+.message-display {
+  display: flex;
+}
+.msg-name {
+  width: 20%;
+  padding-left: 10px;
+  text-align: left;
+  max-width: 100px;
+}
+
+.msg-content {
+  width: 60%;
+  text-align: left;
+}
+
+.msg-time {
+  width: 20%;
+  text-align: right;
+}
+
+.room-list  {
+  list-style-type: none;
+  padding: 0;
+}
+
+.new-message-field {
+  width: 90%;
+  height:25px;
+  border-radius:6px;
+  background: #fff;
+  position:relative;
+  font-size:1em;
+  margin-bottom: 1.7em;
+}
+
+::placeholder {
+  color: black;
+  opacity: 1;
+}
+
+.messages {
+  height: 350px;
+  overflow: scroll;
+}
+
+.user {
+  text-align: right;
+  padding: 20px;
+}
+
+.displayed-name {
+  font-size: 25px;
+  font-weight: bold;
+  color:#16181d;
+  margin: 5px;
+  display: block;
+}
+
+.display-current-room {
+  font-size: 15px;
+  margin: 5px;
+  font-weight: bold;
+}
+
+
+.button{
+  background:#282c34;
+  color:#fff;
+  border-radius:5px;
+  position:relative;
+  height:30px;
+  font-size:1.2em;
+  padding:1 1em;
+
+  transition:800ms ease all;
+  outline:none;
+}
+.button:hover{
+  background:#fff;
+  color:#136a8a;
+}
+.button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #136a8a;
+  transition:400ms ease all;
+}
+.button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.button:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+
