@@ -20,15 +20,26 @@ class User extends React.Component {
     return (
       <div>
         <section className="user">
-          <button type="button" className="sign-in button" onClick={this.signIn}>
-            Sign In
-          </button>
-          <button type="button" className="sign-out button" onClick={this.signOut}>
-            Sign Out
-          </button>
+          {this.props.user ? (
+            <button
+              type="button"
+              className="sign-out button"
+              onClick={this.signOut}
+            >
+              Sign Out
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="sign-in button"
+              onClick={this.signIn}
+            >
+              Sign In
+            </button>
+          )}
         </section>
         <span className="displayed-name">
-        {this.props.user ? this.props.user.displayName : "Guest"}
+          {this.props.user ? this.props.user.displayName : "Guest"}
         </span>
         <section />
       </div>
